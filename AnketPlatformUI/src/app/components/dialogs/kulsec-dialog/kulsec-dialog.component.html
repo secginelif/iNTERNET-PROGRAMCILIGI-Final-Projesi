@@ -1,0 +1,55 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>Kullanıcı Seç</span>
+</mat-toolbar>
+
+<div class="container">
+  <mat-form-field appearance="outline"  style="width: 50%;">
+    <input matInput placeholder="Aranacak Değer Girin" (keyup)=" Filtrele($event)">
+  </mat-form-field>
+  <span>&nbsp; &nbsp;</span>
+  <p>&nbsp;</p>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="kulNo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı No
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kayit"> {{kayit.kulNo}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="kulAdsoyad">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ad Soyad
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kayit"> {{kayit.kulAdsoyad}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="kulTarih">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kayıt Tarihi
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kayit"> {{kayit.kulTarih}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="kulAnketSayisi">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Anket Sayısı
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kayit"> {{kayit.kulAnketSayisi}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="islemler">
+        <mat-header-cell *matHeaderCellDef> İşlemler
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kayit">
+  
+          <button mat-icon-button color="primary" matTooltip="Kullanıcı Seç" (click)="KullaniciSec(kayit)">
+              <mat-icon aria-label="label">add_box</mat-icon> Seç
+          </button>
+        </mat-cell>
+      </ng-container>
+      
+    
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, 200]" showFirstLastButtons> 
+    
+    </mat-paginator>
+</div>

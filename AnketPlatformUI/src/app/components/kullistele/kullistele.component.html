@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>Kullanici Listesi</h1>
+  <h3 *ngIf="secAnket">
+    <b>Anket Kodu : </b>{{secAnket.anketKodu}} &nbsp;
+    <b>Anket Adı : </b>{{secAnket.anketAdi}} &nbsp;
+    <b>Anket Soru Sayısı : </b>{{secAnket.anketSoruSayisi}}
+  </h3>
+
+  <button mat-fab color="primary" matTooltip="Anket Listesi" [routerLink]="['/anket']">
+    <mat-icon aria-label="label">arrow_back</mat-icon>
+  </button> &nbsp;
+  <button mat-fab color="primary" matTooltip="Kullanıcı Ekle" (click)="Ekle()">
+    <mat-icon aria-label="label">person_add</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+  <h3 style="color: red;" *ngIf="kayitlar?.length==0">Henüz Kullanıcı Eklenmedi</h3>
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="kulFoto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Profil Fotoğrafı
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+
+        <img [src]="apiServis.siteUrl+ 'Dosyalar/'+ kayit.kulBilgi.kulFoto" style="width: 50px;" />
+
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kulNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı No
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.kulBilgi.kulNo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kulAdsoyad">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ad Soyad
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.kulBilgi.kulAdsoyad}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kulTarih">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kayıt Tarihi
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.kulBilgi.kulTarih}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="kulAnketSayisi">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Anket Sayısı
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.kulBilgi.kulAnketSayisi}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="islemler">
+      <mat-header-cell *matHeaderCellDef> İşlemler
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+
+        <button mat-icon-button color="warn" matTooltip="Kullanıcıyı Anketten Sil" (click)="Sil(kayit)">
+            <mat-icon aria-label="label">delete</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+    
+  
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, 200]" showFirstLastButtons> 
+  
+  </mat-paginator>
+
+</div>
